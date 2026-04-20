@@ -619,7 +619,7 @@ public enum Order {
 
         // Deliver finished item
 
-        recipe.add(new RecipeStep(RecipeInstruction.DELIVER, new Ingredient(ItemID.ALUFT_CHOC_SATURDAY, 1,
+        recipe.add(new RecipeStep(RecipeInstruction.DELIVER, new Ingredient(ItemID.CHOCOLATE_SATURDAY, 1,
                 true), NO_PRODUCED_ITEM_ID));
 
         return recipe;
