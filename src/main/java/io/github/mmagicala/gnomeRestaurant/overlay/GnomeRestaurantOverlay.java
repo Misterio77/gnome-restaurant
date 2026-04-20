@@ -69,14 +69,19 @@ public class GnomeRestaurantOverlay extends OverlayPanel {
 
     @Override
     public Dimension render(Graphics2D graphics) {
-        // Header
         var header = plugin.overlayHeader();
-        String headerText = "Step " + header.stepNum + "/" + header.totalSteps + ": " + header.instruction;
+        renderOrderOverlay(header);
+        return super.render(graphics);
+    }
 
-        LineComponent headerComponent = LineComponent.builder().left(headerText).build();
-        panelComponent.getChildren().add(headerComponent);
+    private void renderOrderOverlay(OverlayHeader header) {
+        String headerCustomerText = header.order.getName() + " to " + header.customer.getName();
+        LineComponent headerCustomerComponent = LineComponent.builder().left(headerCustomerText).build();
+        panelComponent.getChildren().add(headerCustomerComponent);
 
-        // Overlay tables
+        String headerStepText = "Step " + header.stepNum + "/" + header.totalSteps + ": " + header.instruction;
+        LineComponent headerStepComponent = LineComponent.builder().left(headerStepText).build();
+        panelComponent.getChildren().add(headerStepComponent);
 
         renderOverlayTable(stepIngredientsOverlayTable, "Current Step");
 
@@ -84,8 +89,6 @@ public class GnomeRestaurantOverlay extends OverlayPanel {
             // Only render future ingredients if there are any left
             renderOverlayTable(futureRawIngredientsOverlayTable, "Needed Later");
         }
-
-        return super.render(graphics);
     }
 
     private void renderOverlayTable(List<OverlayTableEntry> overlayTable, String title) {

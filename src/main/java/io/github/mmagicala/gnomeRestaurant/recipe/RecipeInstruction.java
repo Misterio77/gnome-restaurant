@@ -37,7 +37,7 @@ public enum RecipeInstruction {
     POUR("Pour mix into the cocktail glass"),
     HEAT_COCKTAIL("Heat the cocktail"),
 
-    DELIVER("Deliver the item to recipient");
+    DELIVER("Deliver the item");
 
     private final String overlayDirections;
 
