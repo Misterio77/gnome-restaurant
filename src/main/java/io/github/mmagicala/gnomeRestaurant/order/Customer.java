@@ -5,6 +5,8 @@ import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.gameval.NpcID;
 
 import java.security.InvalidParameterException;
+import java.util.Arrays;
+import java.util.List;
 
 public enum Customer {
 
@@ -32,16 +34,16 @@ public enum Customer {
     // Hard NPCs
     HAZELMERE(101, "Hazelmere", CustomerLocation.fixed(NpcID.GRANDTREE_HAZELMERE_MULTI, 2678, 3086)),
     GNORMADIUM_AVLAFRIM(102, "Gnormadium Avlafrim", CustomerLocation.fixed(NpcID.GNORMADIUM_AVLAFRIM_GLIDER, 2544, 2973)),
-    CAPTAIN_NINTO(103, "Captain Ninto", CustomerLocation.fixed(NpcID.ALUFT_PILOT_NINTO, 2869, 9877)),
-    CAPTAIN_DAERKIN(104, "Captain Daerkin", CustomerLocation.fixed(NpcID.ALUFT_PILOT_DAERKIN, 3355, 3210)),
-    BRAMBICKLE(105, "Brambickle", CustomerLocation.fixed(NpcID.ALUFT_GNOME_EXPLORER_MOUNTAIN, 2786, 3862)),
-    WINGSTONE(106, "Wingstone", CustomerLocation.fixed(NpcID.ALUFT_GNOME_EXPLORER_SAFARI, 3380, 2893)),
-    PENWIE(107, "Penwie", CustomerLocation.fixed(NpcID.ALUFT_GNOME_EXPLORER_JUNGLE, 2932, 2972)),
+    CAPTAIN_NINTO(103, "Captain Ninto", CustomerLocation.fixed(NpcID.ALUFT_PILOT_NINTO, 2869, 9877), Arrays.asList(Reward.GOGGLES, Reward.SCARF)),
+    CAPTAIN_DAERKIN(104, "Captain Daerkin", CustomerLocation.fixed(NpcID.ALUFT_PILOT_DAERKIN, 3355, 3210), Arrays.asList(Reward.GOGGLES, Reward.SCARF)),
+    BRAMBICKLE(105, "Brambickle", CustomerLocation.fixed(NpcID.ALUFT_GNOME_EXPLORER_MOUNTAIN, 2786, 3862), Arrays.asList(Reward.SEED_PODS, Reward.MINT_CAKE)),
+    WINGSTONE(106, "Wingstone", CustomerLocation.fixed(NpcID.ALUFT_GNOME_EXPLORER_SAFARI, 3380, 2893), Arrays.asList(Reward.SEED_PODS, Reward.MINT_CAKE)),
+    PENWIE(107, "Penwie", CustomerLocation.fixed(NpcID.ALUFT_GNOME_EXPLORER_JUNGLE, 2932, 2972), Arrays.asList(Reward.SEED_PODS, Reward.MINT_CAKE)),
     AMBASSADOR_GIMBLEWAP(108, "Ambassador Gimblewap", CustomerLocation.fixed(NpcID.ALUFT_GNOME_DIPLOMAT_ARDOUGNE, 2572, 3299)),
     AMBASSADOR_SPANFIPPLE(109, "Ambassador Spanfipple", CustomerLocation.fixed(NpcID.ALUFT_GNOME_DIPLOMAT_FALADOR, 2984, 3342, 1)),
     AMBASSADOR_FERRNOOK(110, "Ambassador Ferrnook", CustomerLocation.fixed(NpcID.ALUFT_GNOME_DIPLOMAT_VARROCK, 3209, 3474)),
     PROFESSOR_IMBLEWYN(111, "Professor Imblewyn", CustomerLocation.fixed(NpcID.ALUFT_GNOME_MAGE_2, 2590, 3092)),
-    PROFESSOR_MANGLETHORP(112, "Professor Manglethorp", CustomerLocation.fixed(NpcID.ALUFT_GNOME_INVENTOR, 2868, 10198)),
+    PROFESSOR_MANGLETHORP(112, "Professor Manglethorp", CustomerLocation.fixed(NpcID.ALUFT_GNOME_INVENTOR, 2868, 10198), Arrays.asList(Reward.SEED_PODS)),
     PROFESSOR_ONGLEWIP(113, "Professor Onglewip", CustomerLocation.fixed(NpcID.ALUFT_GNOME_MAGE, 3115, 3160)),
     GARKOR(114, "Garkor", new GarkorLocation()),
     KING_BOLREN(115, "King Bolren", CustomerLocation.fixed(NpcID.KING_BOLREN, 2542, 3169)),
@@ -54,6 +56,7 @@ public enum Customer {
     private final int id;
     private final String name;
     private final CustomerLocation location;
+    private final List<Reward> uniqueRewards;
 
     public static Customer forId(int id) {
         for (var recipient : values()) {
@@ -64,10 +67,17 @@ public enum Customer {
         throw new InvalidParameterException("No customer found with the id " + id);
     }
 
+    Customer(int id, String name, CustomerLocation location, List<Reward> uniqueRewards) {
+        this.id = id;
+        this.name = name;
+        this.location = location;
+        this.uniqueRewards = uniqueRewards;
+    }
     Customer(int id, String name, CustomerLocation location) {
         this.id = id;
         this.name = name;
         this.location = location;
+        this.uniqueRewards = Arrays.asList();
     }
 
     public String getName() {
@@ -84,5 +94,9 @@ public enum Customer {
 
     public WorldPoint getLocation(Client client) {
         return this.location.resolve(client);
+    }
+
+    public List<Reward> getUniqueRewards() {
+        return this.uniqueRewards;
     }
 }
