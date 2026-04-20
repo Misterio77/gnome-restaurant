@@ -77,6 +77,9 @@ public class GnomeRestaurantOverlay extends OverlayPanel {
     private void renderOrderOverlay(OverlayHeader header) {
         String headerCustomerText = header.order.getName() + " to " + header.customer.getName();
         LineComponent headerCustomerComponent = LineComponent.builder().left(headerCustomerText).build();
+        if (!header.customer.getUniqueRewards().isEmpty()) {
+            headerCustomerComponent.setLeftColor(Color.CYAN);
+        }
         panelComponent.getChildren().add(headerCustomerComponent);
 
         String headerStepText = "Step " + header.stepNum + "/" + header.totalSteps + ": " + header.instruction;
