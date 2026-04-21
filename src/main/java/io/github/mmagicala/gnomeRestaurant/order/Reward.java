@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2020, MMagicala <https://github.com/MMagicala>
  * All rights reserved.
@@ -24,28 +25,23 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.github.mmagicala.gnomeRestaurant.recipe;
+package io.github.mmagicala.gnomeRestaurant.order;
 
-public enum RecipeInstruction {
-    CREATE_RAW("Create the raw batter"),
-    CREATE_HALF_BAKED("Bake the raw batter"),
-    COMBINE_INGREDIENTS("Combine ingredients"),
-    BAKE_HALF_MADE("Bake item again"),
-    ADD_TOPPINGS("Add topping ingredients"),
+import net.runelite.api.gameval.ItemID;
 
-    MIX_COCKTAIL("Mix ingredients in the cocktail shaker"),
-    POUR("Pour mix into the cocktail glass"),
-    HEAT_COCKTAIL("Heat the cocktail"),
+public enum Reward {
+    GOGGLES(ItemID.ALUFT_GNOME_GOGGLES),
+    SCARF(ItemID.ALUFT_GNOME_SCARF),
+    SEED_PODS(ItemID.ALUFT_SEED_POD),
+    MINT_CAKE(ItemID.ALUFT_GNOME_MINT_CAKE);
 
-    DELIVER("Deliver the item");
+    private final int itemId;
 
-    private final String overlayDirections;
-
-    RecipeInstruction(String overlayDirections) {
-        this.overlayDirections = overlayDirections;
+    Reward(int itemId) {
+        this.itemId = itemId;
     }
 
-    public String getOverlayDirections() {
-        return this.overlayDirections;
+    public int getItemId() {
+        return this.itemId;
     }
 }

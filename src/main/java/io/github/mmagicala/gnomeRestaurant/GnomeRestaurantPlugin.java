@@ -118,7 +118,7 @@ public class GnomeRestaurantPlugin extends Plugin {
 
     // Overlay
 
-    private OverlayHeader overlayHeader = new OverlayHeader("null", -1, -1);
+    private OverlayHeader overlayHeader = new OverlayHeader("null", -1, -1, customer, order);
     private final List<OverlayTableEntry> stepIngredientsOverlayTable = new ArrayList<>();
     private final List<OverlayTableEntry> nextRawIngredientsOverlayTable = new ArrayList<>();
 
@@ -432,7 +432,7 @@ public class GnomeRestaurantPlugin extends Plugin {
 
     private void updateOverlayHeader() {
         var instruction = order.getSteps().get(stepIdx).getInstruction().getOverlayDirections();
-        overlayHeader = new OverlayHeader(instruction, stepIdx + 1, order.getSteps().size());
+        overlayHeader = new OverlayHeader(instruction, stepIdx + 1, order.getSteps().size(), customer, order);
     }
 
     private void rebuildOverlayTables() {
