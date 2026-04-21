@@ -501,7 +501,7 @@ public enum Order {
         // Mixed cocktail -> poured cocktail
 
         List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(ItemID.COCKTAIL_GLASS_EMPTY, 1, true));
+        ingredients.add(new Ingredient(ItemID.COCKTAIL_GLASS_EMPTY, 1));
         ingredients.add(new Ingredient(mixedItem, 1, true));
         ingredients.addAll(pouredIngredients);
 
